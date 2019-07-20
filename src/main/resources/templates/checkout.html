@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<title>Checkout</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+		<meta name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css" />
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+			rel="stylesheet" />
+		<link rel="stylesheet"
+			href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.css" />
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.min.css" />
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/js/bootstrap-datetimepicker.min.js"></script>
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.css"
+			rel="stylesheet"></link>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+		
+		<!-- generic -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link>
+		<script type="text/javascript" src="/js/generic.js"></script>
+		
+		
+		<script type="text/javascript" src="/js/checkout.js"></script>
+		<link href="/css/checkout.css" rel="stylesheet" media="screen" />
+	
+	</head>
+<body id="body">
+	<div th:replace="include/top :: top"></div>
+
+	<div th:replace="include/mensajes :: mensajes"></div>
+
+	<div id="container" class="container page">
+
+
+		<!-- seccion de mis productos -->
+		<section>
+
+			<div class="row" style="padding-top: 30px;">
+				<!-- productos adquiridos -->
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-header bg-secondary">
+							<div class="panel-title">
+								<div class="row">
+									<div class="col-lg-6 my-auto">
+										<h5>
+											<i class="fas fa-shopping-bag"></i>&nbsp; Mis productos
+										</h5>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							<div
+								th:each="compraComercioProducto : ${modelo.compraComercioProductos}">
+								<div class="row">
+									<div class="col-lg-1">
+										<a
+											th:href="@{'/details'(id=${compraComercioProducto.producto.id})}"><img
+											width="100%"
+											th:src="${compraComercioProducto.producto.imagen}" /></a>
+									</div>
+									<div class="col-lg-7">
+										<h4 class="product-name">
+											<strong><span
+												th:text="@{${compraComercioProducto.producto.nombre}}"></span></strong>
+										</h4>
+										<h4></h4>
+									</div>
+									<div class="col-lg-4 my-auto">
+										<div class="row">
+
+											<div class="col-lg-2">
+												<div class="btn-group input-group" role="group"
+													aria-label="Basic example">
+
+													<!-- 												  		<a th:href="@{'/cart/remove'(id=${producto.id})}" class="btn btn-secondary btn-sm">-</a> -->
+
+													<a href="#" role="button"
+														class="btn btn-light btn-sm disabled" id="label-btn"
+														aria-disabled="true"><span
+														th:text="@{${compraComercioProducto.cantidad}}"></span></a>
+
+													<!-- 														<a th:href="@{'/cart/add'(id=${producto.id})}" class="btn btn-secondary btn-sm">+</a> -->
+
+
+												</div>
+
+											</div>
+											<div class="col-lg-6 text-right">
+												<h5>
+													<strong><span class="text-muted">$ </span><span
+														th:text="@{${compraComercioProducto.total}}"></span></strong>
+												</h5>
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+								<hr></hr>
+							</div>
+
+
+
+							<div class="row">
+
+								<div class="col-lg-12">
+									<h4 class="text-right">
+										Total <strong><span class="text-muted">$ </span><span
+											th:text="@{${modelo.total}}"></span></strong>
+									</h4>
+								</div>
+
+							</div>
+
+
+						</div>
+
+
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="row pt-4" >
+				<div class="col-md-8 col-lg-12 order-md-1">
+					<h4 class="mb-3">Datos de Facturación</h4>
+					<hr class="mb-4"></hr>
+					<form class="needs-validation" action="/cart/checkout/confirmacion">
+						
+						<input type="hidden" name="id" id="id" th:value="${modelo.compraComercio.id}" />
+						
+						<div class="row">
+							<div class="col-md-6 col-lg-6 mb-3">
+								<label for="nombre">Nombre</label> <input type="text" class="form-control" name="nombre" id="nombre" placeholder="" value=""/>
+								<div class="invalid-feedback">Valid first name is .
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6 mb-3">
+								<label for="apellido">Apellido</label> <input type="text" class="form-control" name="apellido" id="apellido" placeholder="" value=""/>
+								<div class="invalid-feedback">Valid last name is .
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 col-lg-6 mb-3">
+								<label for="username">Username</label> <input type="text" class="form-control" name="username" id="username" placeholder="" value=""/>
+								<div class="invalid-feedback">Valid usuario is .
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6 mb-3">
+								<label for="mail">Email</label> <input type="text" class="form-control" name="mail" id="mail" placeholder="" value=""/>
+								<div class="invalid-feedback">Valid last name is .
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 col-lg-6 mb-3">
+								<label for="direccion">Direccion</label> <input type="text" class="form-control" name="direccion" id="direccion" placeholder="" value=""/>
+								<div class="invalid-feedback">Valid first name is .
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6 mb-3">
+								<label for="telefono">Telefono de contacto</label> <input type="text" class="form-control" name="telefono" id="telefono" placeholder="" value=""/>
+								<div class="invalid-feedback">Valid last name is .
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-5 mb-3">
+								<label for="pais">Country</label> 
+								<select  id="pais" name="pais" class="custom-select d-block w-100" required="required">
+									<option value="">Seleccione Pais</option>
+									
+									<option  value="Argentina">Argentina</option>
+										
+							
+								</select>
+<!-- 								<select -->
+<!-- 									class="custom-select d-block w-100" id="pais" > -->
+<!-- 									<option value="">Choose...</option> -->
+<!-- 									<option>Argentina</option> -->
+<!-- 								</select> -->
+								<div class="invalid-feedback">Please select a valid
+									country.</div>
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="ciudad">State</label> 
+								<select  id="ciudad" name="ciudad" class="custom-select d-block w-100" required="required">
+									<option value="">Seleccione Ciudad</option>
+									
+									<option  class="opcion" value="Buenos Aires" >Buenos Aires</option>
+										
+							
+								</select>
+<!-- 								<select -->
+<!-- 									class="custom-select d-block w-100" id="ciudad" > -->
+<!-- 									<option value="">Choose...</option> -->
+<!-- 									<option>Buenos Aires</option> -->
+<!-- 								</select> -->
+								<div class="invalid-feedback">Please provide a valid state.
+								</div>
+							</div>
+							<div class="col-md-3 mb-3">
+								<label for="codigoPostal">Codigo Postal</label> 
+								<input type="text" class="form-control" name="codigoPostal" id="codigoPostal" placeholder=""  />
+								<div class="invalid-feedback">Codigo Postal</div>
+							</div>
+						</div>
+						
+						<h4 class="mb-3">Metodos de pago y envio</h4>
+						<hr class="mb-4"></hr>
+	
+						<div class="row">
+							<div class="col-md-4 mb-3">
+								<label for="formaPago">Forma de Pago</label> 
+								<select  id="formaPago" name="formaPago" class="custom-select d-block w-100" required="required">
+									<option value="">Seleccione forma Pago</option>
+									
+									<option th:each="formaPago : ${modelo.formaPagos}" th:if="${formaPago.activo}"  class="opcion" th:value="${formaPago.id}" th:text="${formaPago.nombre}"></option>
+										
+							
+								</select>
+<!-- 								<select -->
+<!-- 									class="custom-select d-block w-100" id="formaPago" > -->
+<!-- 									<option value="">Choose...</option> -->
+<!-- 									<option>Argentina</option> -->
+<!-- 								</select> -->
+								<div class="invalid-feedback">Please select a valid
+									country.</div>
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="formaEnvio">Forma de Envio</label> 
+								<select  id="formaEnvio" name="formaEnvio" class="custom-select d-block w-100" required="required">
+									<option value="">Seleccione forma Envio</option>
+									
+									<option th:each="formaEnvio : ${modelo.formaEnvios}" th:if="${formaEnvio.activo}"  class="opcion" th:value="${formaEnvio.id}" th:text="${formaEnvio.nombre}"></option>
+										
+							
+								</select>
+<!-- 								<select -->
+<!-- 									class="custom-select d-block w-100" id="formaEnvio" > -->
+<!-- 									<option value="">Choose...</option> -->
+<!-- 									<option>Buenos Aires</option> -->
+<!-- 								</select> -->
+								<div class="invalid-feedback">Please provide a valid state.
+								</div>
+							</div>
+							
+						</div>
+						
+			
+						
+						<hr class="mb-4"></hr>
+						<div class="row">
+								
+							<div class="col-lg-3 mx-auto">
+								
+         						<input type="submit" id="btnConfirmacion" class="btn btn-success float-right" value="Confirmar"/>
+            					
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+
+
+		</section>
+
+	</div>
+
+	<div id="loading">
+		<div class="sk-fading-circle">
+			<div class="sk-circle1 sk-circle"></div>
+			<div class="sk-circle2 sk-circle"></div>
+			<div class="sk-circle3 sk-circle"></div>
+			<div class="sk-circle4 sk-circle"></div>
+			<div class="sk-circle5 sk-circle"></div>
+			<div class="sk-circle6 sk-circle"></div>
+			<div class="sk-circle7 sk-circle"></div>
+			<div class="sk-circle8 sk-circle"></div>
+			<div class="sk-circle9 sk-circle"></div>
+			<div class="sk-circle10 sk-circle"></div>
+			<div class="sk-circle11 sk-circle"></div>
+			<div class="sk-circle12 sk-circle"></div>
+		</div>
+
+	</div>
+	<div th:replace="include/footer :: footer"></div>
+</body>
+</html>

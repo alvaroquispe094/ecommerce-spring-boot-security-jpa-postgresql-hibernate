@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<title>WCatalogo</title>
+	 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+	
+		<!-- bootstrap -->
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css"/>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+			<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>		
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.css" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.min.css" />
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/js/bootstrap-datetimepicker.min.js"></script>
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.css" rel="stylesheet"></link>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+			
+			<!-- generic -->
+		    <link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+			<script type="text/javascript" src="/js/generic.js"></script>
+
+			<script type="text/javascript" src="/js/catalogo.js"></script>
+	    	<link href="/css/catalogo.css" rel="stylesheet" media="screen"/>
+		
+	</head>	
+	<body id="body">
+		<div th:replace="include/top :: top"></div>
+			
+
+		<div class="container pt-5">
+			<div class="row" >
+				 	<aside class="col-lg-3 col-md-4" id="sidebar">
+				        <div class="container bg-white border mb-4">  
+							<form id="abmCatalogoFilterForm" name="abmCatalogoFilterForm" action="/catalogo" class="form-horizontal" autocomplete="off">
+								<fieldset>
+				        		
+				            	<h4 class="pt-3">Categorias</h4>
+				            		<hr class="mb-3"></hr>
+
+										<select  id="categoria" name="categoria" th:size="${modelo.categorias.size()} + 1">
+												<option class="pt-2 pb-2 pl-3 pr-3" value="" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;Todos</option>
+												<option class="pt-2 pb-2 pl-3 pr-3" th:each="categoria : ${modelo.categorias}" th:if="${categoria.activo}" th:selected="(${modelo.idCategoria} == *{categoria.id})"  th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+													
+										
+										</select>
+										
+										
+								<h4 class="pt-3">Colores</h4>
+				            		<hr class="mb-3"></hr>
+				            			<select id="color" name="color" size="2" >
+									
+										  <option class="pt-2 pb-2 pl-3 pr-3" value="" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;Todos</option>	
+										  <option class="pt-2 pb-2 pl-3 pr-3" value="volvo">&nbsp;&nbsp;&nbsp;&nbsp;Negro</option>
+										  <option class="pt-2 pb-2 pl-3 pr-3" value="saab">&nbsp;&nbsp;&nbsp;&nbsp;Rojo</option>
+										  <option class="pt-2 pb-2 pl-3 pr-3" value="opel">&nbsp;&nbsp;&nbsp;&nbsp;Azul</option>
+										  <option class="pt-2 pb-2 pl-3 pr-3" value="audi">&nbsp;&nbsp;&nbsp;&nbsp;Verde</option>
+										</select>
+				            			
+				            	<h4 class="pt-3">Precio</h4>
+			            			<hr class="mb-3"></hr>		
+			            			<div class="row">
+											<div class="form-group col-lg-12">
+												
+												<div >
+													<label class="sr-only" for="inlineFormInputGroup">Username</label>
+												      <div class="input-group mb-2">
+												        <div class="input-group-prepend">
+												          <div class="input-group-text">$</div>
+												        </div>
+												        <input id="min" type="text" class="form-control input-sm" name="min" placeholder="$0" th:value="${modelo.minimo}"/>
+												      </div>
+
+												</div>
+											</div>
+											
+											<div class="form-group col-lg-12">
+												
+												<div >
+													<div >
+													<label class="sr-only" for="inlineFormInputGroup">Username</label>
+												      <div class="input-group mb-2">
+												        <div class="input-group-prepend">
+												          <div class="input-group-text">$</div>
+												        </div>
+												        <input id="max" type="text" class="form-control input-sm" name="max" placeholder="$999999" th:value="${modelo.maximo}"/>
+												      </div>
+
+												</div>
+												</div>
+											</div>
+											
+											<div class="form-group col-lg-12">
+												<div class="row">
+												    <div class=" col-lg-6">
+														<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Filtrar</button>
+													</div>
+													
+													<div class=" col-lg-6">
+														<button type="submit" id ="reset" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Clear</button>
+													</div>
+												</div>
+											</div>
+										</div>	
+			            			
+				            			
+				            			
+						        </fieldset>
+				          	</form>
+						</div>
+				            
+			        </aside>
+<!-- 		    seccion de filtros de busqueda y listado -->
+            <section th:if="${modelo.cantidad != 0}" class="col-lg-9">    
+	            
+	            	
+
+					
+		          
+                    <div class="row mb-3">	
+						<div class="col-md-4 col-lg-4 mb-4" th:each="producto : ${modelo.productos}">
+							  <div class="card text-center">
+								    
+								    <div class ="card-top">
+								    	<a th:href="@{'/details'(id=${producto.id})}"><img class="card-img-top" th:src="${producto.imagen}"/></a>
+								    	<div class="middle">
+									    	<a th:href="@{'/details'(id=${producto.id})}"><i class="fas fa-search fa-lg" style="color:white;" ></i></a>
+										</div>
+								    </div>	
+								    
+								    <div class="card-body">
+								      <span th:text="@{${producto.nombre}}"></span>
+								      <p class="text-center"><strong><span th:text="@{'$'+${producto.precio}}"></span></strong></p>
+								      <a th:href="@{'/cart/add'(id=${producto.id})}"  class="btn btn-info btn-block countCart"><i class="fas fa-shopping-cart"></i>&nbsp;Agregar</a>
+								    </div>
+							  </div>
+						</div>
+						  
+						  
+					</div>
+	               		
+	               	<div th:replace="include/pagination :: pagination"></div>  
+	            
+	    	</section>       
+	    	 
+			<div th:unless="${modelo.cantidad != 0}">
+				<p class="clear no-result text-center">No se encontraron resultados</p>   	
+			</div>
+
+		</div> 
+		
+		</div>	         
+		
+		<div th:replace="include/footer :: footer"></div>
+	</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Register</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+		
+		<!-- generic -->
+	    <link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+		<script type="text/javascript" src="/js/generic.js"></script>
+	   
+	   	<!-- bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/js/bootstrap-datetimepicker.min.js"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.css" rel="stylesheet"></link>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+		
+		<script type="text/javascript" src="js/categoriaForm.js"></script>
+        
+    </head>
+    <body>
+    	 <div th:replace="include/top :: top"></div>
+    	 <div th:replace="include/mensajes :: mensajes"></div>
+    	
+        <div id="container" class="container">  
+            
+            <div class="row" style="margin-bottom:20px">
+            	<div class="col-2 col-sm-2 col-md-2 col-lg-2" style="margin-top:20px;">
+            		
+            	</div>	
+            	<div class="col-6 col-sm-4 col-md-3 col-lg-2 offset-4 offset-sm-6 offset-md-7 offset-lg-8" style="text-align:right;margin-top:20px;">
+					<a href="javascript:history.back()" class="btn btn-secondary" > Volver Atrás</a>           	
+				</div>
+			</div>		
+				
+            <div id="cuerpo" class="row" style="margin-top:20px">
+            	
+            	<div class="col-xs-12 col-sm-10 col-md-6 offset-sm-1 offset-md-3">
+           			 
+            		
+            		<div class="card">
+					    <div class="card-header bg-info text-white">
+					     	<div  th:if="${modelo.categoria.id != null}">	
+								<h1 class="text-center" style="color:white;">Editar categoria</h1>
+							</div>
+							<div th:unless="${modelo.categoria.id != null}">	
+								<h1 class="text-center" style="color:white;">Nueva categoria</h1>
+							</div>
+					    </div>
+					    
+					    <div class="card-body">
+					    	<form id="categoriaForm" name="categoriaForm" th:action="@{/administrativo/categoria/guardar}" method="post">
+				                <fieldset>                    
+				                  
+									<input type="hidden" name="id" id="id" th:value="${modelo.categoria.id}" />
+									
+				                    <div class="form-group">
+		         						<label for="nombre" class="control-label "><font face="Verdana">Nombre</font></label>
+				                        <input type="text" name="nombre" id="nombre" class="form-control required" th:value="${modelo.categoria.nombre}" />
+				                    </div>
+				                  
+				                    
+				                    <div class="form-group">
+										<label for="activo" class="control-label">Activo?</label>
+										<input type="checkbox" id="activo" name="activo" value="true" checked="checked"/>	
+									</div>
+				
+				                    <div class="form-group">
+				                        <div class="col-lg-offset-2 col-lg-10">
+				                        	<a href="javascript:void(0);" onclick="history.back(-1)" class="btn btn-danger">Cancelar</a>
+				                            <input type="submit" class="btn btn-success" value="Guardar"/>
+				                        </div>
+				                       
+				                    </div>
+				                </fieldset>
+				             </form>   
+					    </div>
+					</div> 
+       			 </div>
+ 
+            </div>
+      
+        </div>
+         
+    </body>
+</html>

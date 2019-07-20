@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<title>Checkout</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+		<meta name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css" />
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+			rel="stylesheet" />
+		<link rel="stylesheet"
+			href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.css" />
+		<link rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.min.css" />
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/js/bootstrap-datetimepicker.min.js"></script>
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.css"
+			rel="stylesheet"></link>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+		
+		<!-- generic -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link>
+		<script type="text/javascript" src="/js/generic.js"></script>
+		
+		
+		<script type="text/javascript" src="/js/payment.js"></script>
+		<link href="/css/payment.css" rel="stylesheet" media="screen" />
+	
+	</head>
+<body id="body">
+	<div th:replace="include/top :: top"></div>
+
+	<div th:replace="include/mensajes :: mensajes"></div>
+
+	<div id="container" class="container page">
+
+
+		<!-- seccion Facturacion -->
+		<section>
+			
+			<div class="row pt-3">
+		        <div class="col-lg-12">
+		            <div class="card">
+		                <div class="card-header">
+		                    <h2>Detalle de Facturacion</h2>
+							<hr></hr>
+
+							<dl class="dl-horizontal text-center row"> 
+								<dt class="col-lg-3">Nombre:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.nombre}"></span> </dd> 
+								<dt class="col-lg-3"> Apellido:</dt> <dd class="col-lg-3"><span th:text="${modelo.compraComercioFacturacion.apellido}"></span></dd> 
+								<dt class="col-lg-3"> Usuario: </dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.username}"></span> </dd> 
+								<dt class="col-lg-3"> E-mail: </dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.mail}"></span> </dd>
+								<dt class="col-lg-3">Direccion:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.direccion}"></span> </dd> 
+								<dt class="col-lg-3">Telefono contacto:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.telefono}"></span> </dd> 
+								<dt class="col-lg-3">Pais:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.pais}"></span> </dd> 
+								<dt class="col-lg-3">Ciudad:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.ciudad}"></span></dd> 
+								<dt class="col-lg-3">Codigo Postal:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.codigoPostal}"></span> </dd> 
+								<dt class="col-lg-3">Forma de pago:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.formaPago.nombre}"></span> </dd> 
+								<dt class="col-lg-3">Forma de entrega:</dt> <dd class="col-lg-3"> <span th:text="${modelo.compraComercioFacturacion.formaEnvio.nombre}"></span> </dd> 
+								
+							</dl>
+							
+		                    <br></br>
+		                    
+						</div> <!-- panel heading -->
+						
+						<div class="card-body">
+							<h2>Detalle de productos</h2>
+                    
+		                    <div class="table-responsive mb-3">
+			                    <table class="table table-striped">
+			                        <thead>
+			                            <tr>
+			                            	<th>Número</th>
+				                               	<th>Nombre Producto</th>
+				                                <th>Cantidad</th>
+				                                <th>Sub Total</th>
+				                                
+			
+				                                
+			                                
+			                            </tr>
+			                        </thead>
+			                        <tbody>
+			                            <tr th:each="compraComercioProducto : ${modelo.compraComercioProductos}">
+				                            	<td th:text="${compraComercioProducto.id}"></td>
+				                                <td th:text="${compraComercioProducto.producto.nombre}"></td>
+				                                <td th:text="${compraComercioProducto.cantidad}"></td>
+				                                <td th:text="'$'+${compraComercioProducto.total}"></td>
+				                                
+				                               
+				                            </tr>
+			                        </tbody>
+			                       
+			                        
+			                    </table>    
+		                    </div>  
+						</div> <!-- panel body -->
+						
+						<div class="card-footer">
+							<div class="row">
+								<div class="col-lg-12">
+									<h4 class="text-right">
+										Total <strong><span class="text-muted">$ </span><span
+											th:text="@{${modelo.total}}"></span></strong>
+									</h4>
+								</div>
+							</div>
+						</div>
+		             </div> <!-- panel -->
+		        </div> <!-- col -->
+		    </div> <!-- row -->		
+		    
+		    <div class="row pt-4">
+								
+					<div class="col-lg-3 mx-auto">
+						
+       						<!-- apareceran o no segun el case -->
+						<th:block th:switch="${modelo.compraComercioFacturacion.formaPago.nombre}">
+						    
+						    <div th:case="'EFECTIVO'">
+						        
+						        <a href="#" id="btnPagoMP" class="btn btn-success"><i class="fas fa-calendar-check"></i>&nbsp;Efectivo</a>
+						    	
+						    </div>
+						    <div th:case="'MERCADO PAGO'">
+<!-- 						        <form id="paymenteForm" name="paymentForm" method="GET"> -->
+									<input type="hidden" name="idCompraComercio" id="idCompraComercio" th:value="${modelo.compraComercio.id}" />
+						        	<input type="button" id="btnPagoMP"  class="btn btn-success" value="Mercado Pago"/>
+<!-- 						        	<a href="javascript(0)" id="btnPagoMP" class="btn btn-success"><i class="fas fa-money-check"></i>&nbsp;Mercado Pago</a> -->
+<!-- 						        </form> -->
+<!-- 						    	<a th:href="@{'/administrativo/compraComercio/ver'(id=${compraComercio.id})}" class="btn btn-outline-success"><i class="fas fa-money-bill-wave"></i>&nbsp;Pagar</a> -->
+						    </div>
+						    <div th:case="'TRANSFERENCIA BANCARIA'">
+						        <form id="paymenteForm" name="paymentForm" action="/cart/checkout/guardar" method="GET">
+						       	 <a href="#" id="btnPagoMP" class="btn btn-success"><i class="fas fa-money-check"></i>&nbsp;Tranferencia bancaria</a>
+						   		</form>
+						    </div>
+						    
+						</th:block>
+          		
+					</div>
+			 </div>	
+
+		</section>
+
+	</div>
+
+	<div id="loading">
+		<div class="sk-fading-circle">
+			<div class="sk-circle1 sk-circle"></div>
+			<div class="sk-circle2 sk-circle"></div>
+			<div class="sk-circle3 sk-circle"></div>
+			<div class="sk-circle4 sk-circle"></div>
+			<div class="sk-circle5 sk-circle"></div>
+			<div class="sk-circle6 sk-circle"></div>
+			<div class="sk-circle7 sk-circle"></div>
+			<div class="sk-circle8 sk-circle"></div>
+			<div class="sk-circle9 sk-circle"></div>
+			<div class="sk-circle10 sk-circle"></div>
+			<div class="sk-circle11 sk-circle"></div>
+			<div class="sk-circle12 sk-circle"></div>
+		</div>
+
+	</div>
+	<div th:replace="include/footer :: footer"></div>
+</body>
+</html>

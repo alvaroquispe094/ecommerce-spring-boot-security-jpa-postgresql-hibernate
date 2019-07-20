@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<head>
+		<title>WCatalogo</title>
+	 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+	
+		<!-- bootstrap -->
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css"/>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
+			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+			<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>		
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.css" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/css/bootstrap-datetimepicker.min.css" />
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.1/js/bootstrap-datetimepicker.min.js"></script>
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.css" rel="stylesheet"></link>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+			
+			<!-- generic -->
+		    <link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+			<script type="text/javascript" src="/js/generic.js"></script>
+	
+
+			<script type="text/javascript" src="/js/cart.js"></script>
+	    	<link href="/css/cart.css" rel="stylesheet" media="screen"/>
+		
+	</head>	
+	<body id="body">
+		<div th:replace="include/top :: top"></div>
+	     	
+	    <!-- Page Content -->
+		<div class="container">
+		
+		  <!-- Portfolio Item Heading -->
+		  <h1 class="my-4 pt-5">Detalle del producto
+<!-- 		  <small>Secondary Text</small> -->
+		  </h1>
+		
+		  <!-- Portfolio Item Row -->
+		  <div class="row">
+		
+		    <div class="col-md-8">
+		      <img class="img-fluid" th:src="${modelo.producto.imagen}"/>
+		    </div>
+		
+		    <div class="col-md-4">
+		    	<h3 class="my-3"><strong><span th:text="@{${modelo.producto.nombre}}"></span></strong></h3>
+		    	<hr style="height:5px"></hr>
+		    	
+		    	<h5><strong><span class="text-muted">$ </span><span th:text="@{${modelo.producto.precio}}"></span></strong></h5>
+		    
+			      <h3 class="my-3">Descripcion</h3>
+			      <p><span th:text="@{${modelo.producto.descripcion}}"></span></p>
+			      
+			      
+			      <a th:href="@{'/addCart'(id=${modelo.producto.id})}" class="btn btn-info btn-block"><i class="fas fa-shopping-cart"></i>&nbsp;Agregar</a>
+			      
+		    </div>
+		
+		  </div>
+		  <!-- /.row -->
+		
+		  <!-- Related Projects Row -->
+		  <h3 class="my-4">Related Projects</h3>
+		
+		  <div class="row">
+		
+		    <div class="col-md-3 col-sm-6 mb-4">
+		      <a href="#">
+		            <img class="img-fluid" src="http://placehold.it/500x300" alt=""/>
+		          </a>
+		    </div>
+		
+		    <div class="col-md-3 col-sm-6 mb-4">
+		      <a href="#">
+		            <img class="img-fluid" src="http://placehold.it/500x300" alt=""/>
+		          </a>
+		    </div>
+		
+		    <div class="col-md-3 col-sm-6 mb-4">
+		      <a href="#">
+		            <img class="img-fluid" src="http://placehold.it/500x300" alt=""/>
+		          </a>
+		    </div>
+		
+		    <div class="col-md-3 col-sm-6 mb-4">
+		      <a href="#">
+		            <img class="img-fluid" src="http://placehold.it/500x300" alt=""/>
+		          </a>
+		    </div>
+		
+		  </div>
+		  <!-- /.row -->
+		
+		</div>
+		<!-- /.container --> 
+		
+		<div th:replace="include/footer :: footer"></div>
+	</body>
+</html>

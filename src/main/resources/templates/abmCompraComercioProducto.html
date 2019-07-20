@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Materias de la compraComercio</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+		
+		<!-- generic -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+		<script type="text/javascript" src="/js/generic.js"></script>	
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
+			
+    </head>
+    
+    
+    
+    <body>
+    
+    	<div th:replace="include/top :: top"></div>
+    	
+    	<div th:replace="include/mensajes :: mensajes"></div>
+
+        <div id="container" class="container-fluid">    
+        
+        	<!-- boton nuevo -->
+        	<section sec:authorize="hasAuthority('ROL_ADMINISTRADOR')">
+	            <div class="row" style="margin-bottom:20px">
+	            	<div class="col-2 col-sm-2 col-md-2 col-lg-2" style="margin-top:20px;">
+	            		<a th:href="@{'/administrativo/compraComercio/producto/nuevo'(idCompraComercio=${modelo.compraComercio.id})}" class="btn btn-primary">Nuevo</a>
+	            	</div>	
+	            	<div class="col-6 col-sm-4 col-md-3 col-lg-2 offset-4 offset-sm-6 offset-md-7 offset-lg-8" style="text-align:right;margin-top:20px;">
+						<a href="javascript:history.back()" class="btn btn-secondary" > Volver Atrás</a>           	
+					</div>
+				</div>		
+	        </section> 
+            
+            <!-- seccion de filtros de busqueda y listado -->
+            <section th:if="${modelo.cantidad != 0}">
+	            <div class="row">
+	            	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 offset-lg-4 offset-md-3 offset-sm-3" >
+						<form id="abmCompraComercioProductoFilterForm" name="abmCompraComercioProductoFilterForm" action="administrativo/compraComercios" class="form-horizontal" autocomplete="off">
+							<fieldset>
+								<div id="primerParte">
+									<div class="form-group">
+										<label for="nombre" class="control-label col-lg-4">Nombre</label>
+										<div class="col-lg-6">
+											<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" th:value="${modelo.nombre}"/>
+										</div>
+									</div>
+									
+									<div class="form-group">
+									    <div class="col-lg-offset-4 col-lg-4">
+											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar</button>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+	            
+	            <div>
+                    <h2>Detalle de productos</h2>
+                    
+                    <div class="table-responsive mb-3">
+	                    <table class="table table-striped">
+	                        <thead class="thead-dark">
+	                            <tr>
+	                            	<th>Número</th>
+		                               	<th>Nombre Producto</th>
+		                                <th>Cantidad</th>
+		                                <th>Total</th>
+		                                
+	
+		                                <th sec:authorize="hasAuthority('ROL_ADMINISTRADOR')">Acciones</th>
+	                                
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr th:each="compraComercioProducto : ${modelo.compraComercioProductos}">
+		                            	<td th:text="${compraComercioProducto.id}"></td>
+		                                <td th:text="${compraComercioProducto.producto.nombre}"></td>
+		                                <td th:text="${compraComercioProducto.cantidad}"></td>
+		                                <td th:text="${compraComercioProducto.total}"></td>
+		                                
+		                                
+		                                <td sec:authorize="hasAuthority('ROL_ADMINISTRADOR')">
+		                                	
+		                                	<a th:href="@{'/administrativo/compraComercio/producto/editar'(id=${compraComercioProducto.id})}" class="btn btn-success">Editar</a>
+		                                
+		                                </td>
+		                                
+		                            </tr>
+	                        </tbody>
+	                    </table>    
+                    </div>
+               		
+               		<div th:replace="include/pagination :: pagination"></div>     
+                    
+                </div>
+	            
+           	</section> 
+        	
+        	<div th:unless="${modelo.cantidad != 0}">
+				<p class="clear no-result text-center">No se encontraron resultados</p>   	
+			</div>
+        	
+        </div>
+    </body>
+</html>

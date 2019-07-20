@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Destacados</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+	
+		<!-- generic -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+		<script type="text/javascript" src="/js/generic.js"></script>	
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
+				
+    </head>
+    <body>
+    
+    	<div th:replace="include/top :: top"></div>
+    	
+    	<div th:replace="include/mensajes :: mensajes"></div>
+    	
+        <div id="container" class="container-fluid">     
+            
+            <!-- boton nuevo -->
+        	<section>
+	            <div class="row" style="margin-bottom:20px">
+	            	<div class="col-2 col-sm-2 col-md-2 col-lg-2" style="margin-top:20px;">
+	            		<a th:href="@{/administrativo/destacado/nuevo}" class="btn btn-primary">Nuevo</a>
+	            	</div>	
+	            	
+				</div>		
+	        </section>
+	        
+	        <!-- seccion de filtros de busqueda y listado -->
+            <section th:if="${modelo.cantidad != 0}">    
+	            <div class="row">
+	            	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 offset-lg-4 offset-md-3 offset-sm-3" >
+						<form id="abmDestacadoFilterForm" name="abmDestacadoFilterForm" action="administrativo/destacados" class="form-horizontal" autocomplete="off">
+							<fieldset>
+								<div id="primerParte">
+									<div class="form-group">
+										<label for="nombre" class="control-label col-lg-4">Nombre</label>
+										<div class="col-lg-6">
+											<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" th:value="${modelo.nombre}"/>
+										</div>
+									</div>
+<!-- 									<div class="form-group"> -->
+<!-- 										<label for="categoria" class="control-label col-lg-4">Categoria</label> -->
+<!-- 										<div class="col-lg-6"> -->
+<!-- 											<select  id="categoria" name="categoria" class="form-control" > -->
+<!-- 												<option value="">Seleccione producto</option> -->
+<!-- 												<option th:each="producto : ${modelo.productos}" th:if="${producto.activo}" th:selected="(${modelo.idProducto} == *{producto.id})" class="opcion" th:value="${producto.id}" th:text="${producto.nombre}"></option> -->
+													
+										
+<!-- 											</select> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+									<div class="form-group">
+									    <div class="col-lg-offset-4 col-lg-4">
+											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar</button>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+	            	
+	            <div>
+					<h2>Destacados</h2>
+	                    
+                    <div class="row mb-3">	
+						<div class="col-md-4 col-lg-3 mb-4" th:each="destacado : ${modelo.destacados}">
+							  <div class="card text-center">
+								    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+								      <span th:text="@{${destacado.producto.nombre}}"></span>
+								      <a th:href="@{'/editarDestacado'(id=${destacado.id})}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+								    </div>
+								    <img class="card-img-top" th:src="${destacado.producto.imagen}"/>
+								    <div class="card-body">
+								      <p><span th:text="@{${destacado.producto.descripcion}}"></span></p>
+								      <p class="text-center"><strong><span th:text="@{'$'+${destacado.producto.precio}}"></span></strong></p>
+								      <a th:href="@{'/administrativo/destacado/editar'(id=${destacado.id})}" class="btn btn-info btn-block"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+								    </div>
+							  </div>
+						</div>
+						  
+						  
+					</div>
+	               		
+	               	<div th:replace="include/pagination :: pagination"></div>  
+	            </div>
+	    	</section>       
+	    	 
+			<div th:unless="${modelo.cantidad != 0}">
+				<p class="clear no-result text-center">No se encontraron resultados</p>   	
+			</div>
+			
+        </div>
+    </body>
+</html>

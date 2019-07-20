@@ -1,0 +1,83 @@
+body{
+	margin-top:77px!Important;
+	background-color : #FAFAFA!Important;
+}
+
+.footer {
+    width: 100%;
+    padding: 35px; 
+    background-color: #1E455F;
+}
+
+.footer h4{
+	color:white;
+}
+
+.footer a{
+	color:white;
+}
+.footer a:link{
+	text-decoration:none;
+
+}
+
+.navbar {
+	padding:10px!Important;
+	margin:0px!Important;
+	border-radius:0px!Important;
+}
+
+label{
+	    font-size: 18px;
+	    
+}
+
+nav ul li{
+	margin-right:20px!Important;
+}
+
+.error{
+	color:red;
+	font-family:verdana, Helvetica;
+}
+
+
+
+
+/******************* efecto para cards ************************/
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1)!Important;
+  transition: 0.3s!Important;
+/*   width: 40%!Important; */
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)!Important;
+}
+
+.card:hover .card-top img{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)!Important;
+  filter: brightness(50%);
+}
+
+.card:hover .middle{
+  filter: brightness(100%);
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.card:hover .middle {
+  opacity: 1;
+}
+/* ***************************End**************************** */
+
+ 

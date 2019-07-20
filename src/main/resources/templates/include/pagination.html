@@ -1,0 +1,77 @@
+<!-- Pagination-->
+
+<div aria-label="Page navigation example" th:fragment="pagination">
+  	<ul class="pagination justify-content-center">
+  		
+  		<!-- Previous -->
+	    <li class="page-item" th:if="${modelo.page.hasPrevious()}">
+	    	<a class="page-link" href="#" tabindex="-1" th:href="@{${modelo.url}(page=${modelo.page.number-1},size=${modelo.page.size})} + ${modelo.query}">Anterior</a>
+		</li>
+		<li class="page-item disabled" th:unless="${modelo.page.hasPrevious()}">
+	      	<a class="page-link" href="#" tabindex="-1" th:href="@{${modelo.url}(page=${modelo.page.number-1},size=${modelo.page.size})} + ${modelo.query}">Anterior</a>
+	    </li>
+	    
+		<!-- items paginacion -->
+	    <th:block th:each="i: ${#numbers.sequence(0, modelo.page.totalPages - 1)}">
+	    	<li th:if="${modelo.page.number == i}" class="page-item active">
+		        <a class="page-link" th:href="@{${modelo.url}(page=${i},size=${modelo.page.size})} + ${modelo.query}" th:text="${i + 1}"></a>
+		    </li>
+		    <li th:unless="${modelo.page.number == i}" class="page-item">
+		        <a class="page-link" th:href="@{${modelo.url}(page=${i},size=${modelo.page.size})} + ${modelo.query}" th:text="${i + 1}"></a>
+	        </li>
+	    </th:block>
+	    
+	    <!-- Next -->
+	    <li class="page-item" th:if="${modelo.page.hasNext()}">
+	    	<a class="page-link" tabindex="-1" th:href="@{${modelo.url}(page=${modelo.page.number+1},size=${modelo.page.size})} + ${modelo.query}">Siguiente</a>
+	    </li>
+	    <li class="page-item disabled" th:unless="${modelo.page.hasNext()}">	
+	      	<a class="page-link" tabindex="-1" th:href="@{${modelo.url}(page=${modelo.page.number+1},size=${modelo.page.size})} + ${modelo.query}">Siguiente</a>
+	    </li>
+	  </ul>
+</div>
+
+
+<!-- <nav aria-label="..."> -->
+<!--   <ul class="pagination"> -->
+<!--     <li class="page-item disabled"> -->
+<!--       <a class="page-link" href="#" tabindex="-1">Previous</a> -->
+<!--     </li> -->
+<!--     <li class="page-item"><a class="page-link" href="#">1</a></li> -->
+<!--     <li class="page-item active"> -->
+<!--       <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
+<!--     </li> -->
+<!--     <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+<!--     <li class="page-item"> -->
+<!--       <a class="page-link" href="#">Next</a> -->
+<!--     </li> -->
+<!--   </ul> -->
+<!-- </nav> -->
+
+
+<!-- <div id="pagination"  th:fragment="pagination"> -->
+<!-- 	<ul class="pagination"> -->
+<!-- 		<li> -->
+<!-- 		    <span th:if="${modelo.page.hasPrevious()}"> -->
+<!-- 		        <a th:href="@{${modelo.url}(page=${modelo.page.number-1},size=${modelo.page.size})} + ${modelo.query}">Previous</a> -->
+<!-- 		    </span> -->
+<!-- 		</li> -->
+		   
+<!-- 	    <th:block th:each="i: ${#numbers.sequence(0, modelo.page.totalPages - 1)}"> -->
+<!-- 	    	<li th:if="${modelo.page.number == i}" class="active"> -->
+<!-- 		        <span  th:text="${i + 1}" ></span> -->
+<!-- 		    </li> -->
+<!-- 		    <li th:unless="${modelo.page.number == i}"> -->
+
+<!-- 		             <a th:href="@{${modelo.url}(page=${i},size=${modelo.page.size})} + ${modelo.query}" th:text="${i + 1}"></a> -->
+
+<!-- 	        </li> -->
+<!-- 	    </th:block> -->
+	
+<!-- 		<li>     -->
+<!-- 		    <span th:if="${modelo.page.hasNext()}"> -->
+<!-- 		        <a th:href="@{${modelo.url}(page=${modelo.page.number+1},size=${modelo.page.size})} + ${modelo.query}">Next</a> -->
+<!-- 		    </span> -->
+<!-- 		</li>     -->
+<!--     </ul> -->
+<!-- </div> -->

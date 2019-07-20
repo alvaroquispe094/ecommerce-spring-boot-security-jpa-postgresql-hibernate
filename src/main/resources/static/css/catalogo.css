@@ -1,0 +1,42 @@
+aside ul li a{
+	color: gray!Important;
+	
+}
+
+aside ul li a:hover { /*le da el efecto al poner el mouse sobre el item del menu*/
+	background-color: #EFEFEF;
+	
+}
+
+aside hr{
+	border-color:#71cd14;
+}
+
+
+aside select{
+		 background: none!Important;
+  		border: none!Important;
+	  overflow-y:hidden;
+	  outline: 0;
+	  width:100%;
+	  text-decoration:none!Important;
+}
+
+select option:hover {
+	background-color : #EFEFEF;
+}
+
+select option {
+	cursor: pointer;
+	color : gray;
+}
+
+
+select option:checked {
+    box-shadow: 0 0 10px 100px #D5D8DC inset;
+    backgroun-color:#D5D8DC;
+    color:gray!Important;
+}
+
+
+

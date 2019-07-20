@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Book List</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>	
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
+		
+		<!-- generic -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+		<script type="text/javascript" src="/js/generic.js"></script>
+				
+    </head>
+    <body>
+    
+    	<div th:replace="include/top :: top"></div>
+    	
+    	<div th:replace="include/mensajes :: mensajes"></div>
+    	
+        <div id="container" class="container-fluid">     
+        	
+        	<!-- boton nuevo -->
+        	<section>
+	            <div class="row" style="margin-bottom:20px">
+	            	<div class="col-2 col-sm-2 col-md-2 col-lg-2" style="margin-top:20px;">
+	            		<a th:href="@{/administrativo/categoria/nuevo}" class="btn btn-primary">Nuevo</a>
+	            	</div>	
+	            	
+				</div>
+			</section>			
+			
+			<!-- seccion de filtros de busqueda y listado -->
+            <section th:if="${modelo.cantidad != 0}">
+            
+	            <div class="row">
+	            	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 offset-lg-4 offset-md-3 offset-sm-3" >
+						<form id="abmCategoriaFilterForm" name="abmCategoriaFilterForm" action="admnistrativo/categorias" class="form-horizontal" autocomplete="off">
+							<fieldset>
+								<div id="primerParte">
+									<div class="form-group">
+										<label for="nombre" class="control-label col-lg-4">Nombre</label>
+										<div class="col-lg-6">
+											<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" th:value="${modelo.nombre}"/>
+										</div>
+									</div>
+									<div class="form-group">
+									    <div class="col-lg-offset-4 col-lg-4">
+											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar</button>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+            	
+                <div>
+                    <h2>Categorias</h2>
+                    
+                    <div class="table-responsive mb-3">
+	                    <table class="table table-striped">
+	                        <thead class="thead-dark">
+	                            <tr>
+	                                <th>nombre</th>
+	                                <th>activo?</th>
+	                                <th>Acciones</th>
+	                                
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr th:each="categoria : ${modelo.categorias}">
+	                                <td th:text="${categoria.nombre}"></td>
+	                            	<td th:switch="${categoria.activo}">
+										<span th:case="true">Si</span>
+										<span th:case="*">No</span>
+									</td>
+	                                <td class="text-nowrap">
+	                                	<a th:href="@{'/administrativo/categoria/desactivar'(id=${categoria.id})}" class="btn btn-danger" th:if="${categoria.activo}">Desactivar</a>
+									
+										<a th:href="@{'/administrativo/categoria/activar'(id=${categoria.id})}" class="btn btn-info" th:unless="${categoria.activo}">Activar</a>
+	                                	
+	                                	<a th:href="@{'/administrativo/categoria/editar'(id=${categoria.id})}" class="btn btn-success">Editar</a>
+	                                	
+	                                
+	                                </td>
+	                                
+	                            </tr>
+	                        </tbody>
+	                    </table>    
+                    </div>
+               		
+               		<div th:replace="include/pagination :: pagination"></div>     
+                    
+                </div>
+                
+                
+				
+           	</section>
+            
+           	<div th:unless="${modelo.cantidad != 0}">
+				<p class="clear no-result text-center">No se encontraron categorias</p>   	
+			</div>
+			
+        </div>
+    </body>
+</html>

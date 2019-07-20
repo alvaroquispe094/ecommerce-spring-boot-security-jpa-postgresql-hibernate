@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>CompraComercios</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"></meta>
+	
+		<!-- generic -->
+		<link href="/css/style-generic.css" rel="stylesheet" media="screen"></link> 	
+		<script type="text/javascript" src="/js/generic.js"></script>	
+		
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet"/>
+				
+    </head>
+    <body>
+    
+    	<div th:replace="include/top :: top"></div>
+    	
+    	<div th:replace="include/mensajes :: mensajes"></div>
+    	
+        <div id="container" class="container-fluid">     
+            
+            <!-- boton nuevo -->
+        	<section>
+	            <div class="row" style="margin-bottom:20px">
+	            	<div class="col-2 col-sm-2 col-md-2 col-lg-2" style="margin-top:20px;">
+	            		<a th:href="@{/administrativo/compraComercio/nuevo}" class="btn btn-primary">Nuevo</a>
+	            	</div>
+	            	<div class="col-6 col-sm-4 col-md-3 col-lg-2 offset-4 offset-sm-6 offset-md-7 offset-lg-8" style="text-align:right;margin-top:20px;">
+						<a href="javascript:history.back()" class="btn btn-secondary" > Volver Atrás</a>           	
+					</div>	
+	            	
+				</div>		
+	        </section>
+	        
+	        <!-- seccion de filtros de busqueda y listado -->
+            <section th:if="${modelo.cantidad != 0}">    
+	            <div class="row">
+	            	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 offset-lg-4 offset-md-3 offset-sm-3" >
+						<form id="abmCompraComercioFilterForm" name="abmCompraComercioFilterForm" action="administrativo/compraComercios" class="form-horizontal" autocomplete="off">
+							<fieldset>
+								<div id="primerParte">
+									<div class="form-group">
+										<label for="nombre" class="control-label col-lg-4">Nombre</label>
+										<div class="col-lg-6">
+											<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" th:value="${modelo.nombre}"/>
+										</div>
+									</div>
+									
+									<div class="form-group">
+									    <div class="col-lg-offset-4 col-lg-4">
+											<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Buscar</button>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+	            	
+	            <div>
+                    <h2>Listado de Ventas</h2>
+                    
+                    <div class="table-responsive mb-3">
+	                    <table class="table table-striped">
+	                        <thead class="thead-dark">
+	                            <tr>
+	                            	<th>Numero</th>
+	                                <th>Nombre</th>
+	                                <th>Apellido</th>
+	                                <th>N° documento</th>
+	                                <th>Direccion</th>
+	                                <th>Telefono</th>
+	                                <th>E-mail</th>
+	                                <th>Estado</th>
+	                                <th>Fecha venta</th>
+	                                <th>Total</th>
+	                                <th>activo?</th>
+	                                <th>Acciones</th>
+	                                
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <tr th:each="compraComercio : ${modelo.compraComercios}">
+	                                <td th:text="${compraComercio.id}"></td>
+	                                <td th:text="${compraComercio.usuarioCliente.nombre}"></td>
+	                                <td th:text="${compraComercio.usuarioCliente.apellido}"></td>
+	                                <td th:text="${compraComercio.usuarioCliente.documento}"></td>
+	                                <td th:text="${compraComercio.usuarioCliente.direccion}"></td>
+	                                <td th:text="${compraComercio.usuarioCliente.telefono}"></td>
+	                                <td th:text="${compraComercio.usuarioCliente.mail}"></td>
+	                                <td th:text="${compraComercio.estado.nombre}"></td>
+	                                <td th:text="${#dates.format(compraComercio.fecha, 'dd/MM/yyyy')}"></td>
+	                                <td th:text="'$ '+${compraComercio.total}"></td>
+	                            	<td th:switch="${compraComercio.activo}">
+										<span th:case="true">Si</span>
+										<span th:case="*">No</span>
+									</td>
+	                                <td class="text-nowrap">
+	                                	<a th:href="@{'/administrativo/compraComercio/desactivar'(id=${compraComercio.id})}" class="btn btn-danger" th:if="${compraComercio.activo}">Desactivar</a>
+										<a th:href="@{'/administrativo/compraComercio/activar'(id=${compraComercio.id})}" class="btn btn-info" th:unless="${compraComercio.activo}">Activar</a>	                                	
+	                                	<a th:href="@{'/administrativo/compraComercio/editar'(id=${compraComercio.id})}" class="btn btn-success">Editar</a>
+	                                	<a th:href="@{'/administrativo/compraComercio/productos'(id=${compraComercio.id})}" class="btn btn-outline-primary"><i class="fas fa-shopping-bag"></i>&nbsp;Detalle</a>
+	                                	&nbsp;&nbsp;&nbsp;
+										<!-- apareceran o no segun el case -->
+										<th:block th:switch="${compraComercio.estado.nombre}">
+										    <div th:case="'INGRESADO'">
+										        <a th:href="@{'/administrativo/compraComercio/cambiarEstado'(id=${compraComercio.id},idEstado=2)}" class="btn btn-outline-primary"><i class="fas fa-check-square"></i>&nbsp;Confirmado</a>
+										        <a th:href="@{'/administrativo/compraComercio/cambiarEstado'(id=${compraComercio.id},idEstado=4)}" class="btn btn-outline-danger"><i class="fas fa-window-close"></i>&nbsp;Cancelar</a>
+										    </div>
+										    <div th:case="'CONFIRMADO'">
+										        <a th:href="@{'/administrativo/compraComercio/cambiarEstado'(id=${compraComercio.id},idEstado=3)}" class="btn btn-outline-success"><i class="fas fa-money-check-alt"></i>&nbsp;Pagado</a>
+										        <a th:href="@{'/administrativo/compraComercio/ver'(id=${compraComercio.id})}" class="btn btn-outline-secondary"><i class="fas fa-money-check"></i>&nbsp;Ver</a>
+										    	<a th:href="@{'/administrativo/compraComercio/cambiarEstado'(id=${compraComercio.id},idEstado=4)}" class="btn btn-outline-danger" ><i class="fas fa-window-close"></i>&nbsp;Cancelar</a>
+										    </div>
+										    <div th:case="'PAGADO'">
+										        <a th:href="@{'/administrativo/compraComercio/cambiarEstado'(id=${compraComercio.id},idEstado=5)}" class="btn btn-outline-warning"><i class="far fa-paper-plane"></i>&nbsp;Enviado</a>
+										        <a th:href="@{'/administrativo/compraComercio/ver'(id=${compraComercio.id})}" class="btn btn-outline-secondary"><i class="fas fa-money-check"></i>&nbsp;Ver</a>
+										   		<a th:href="@{'/administrativo/compraComercio/cambiarEstado'(id=${compraComercio.id},idEstado=4)}" class="btn btn-outline-danger"><i class="fas fa-window-close"></i>&nbsp;Cancelar</a>
+										    </div>
+										    
+										</th:block>
+	                                </td>
+	                                
+	                                
+	                            </tr>
+	                        </tbody>
+	                    </table>    
+                    </div>
+               		
+               		<div th:replace="include/pagination :: pagination"></div>     
+                    
+                </div>
+	    	</section>       
+	    	 
+			<div th:unless="${modelo.cantidad != 0}">
+				<p class="clear no-result text-center">No se encontraron resultados</p>   	
+			</div>
+			
+        </div>
+    </body>
+</html>

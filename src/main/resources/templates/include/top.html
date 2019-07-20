@@ -1,0 +1,133 @@
+<!-- Navigation -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"  th:fragment="top">
+  <a class="navbar-brand" href="/"><img src="/img/logo.png" alt="Logo" /></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  </button>
+	
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    
+	    
+	    <form class="form-inline mx-auto" sec:authorize="!hasAuthority('ROL_ADMINISTRADOR')">
+	      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+	      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+	    
+	    <ul class="navbar-nav ml-auto" sec:authorize="!isAuthenticated()">
+	      	<li class="nav-item active">
+	       	 	<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+	     	 </li>
+	      	<li class="nav-item">
+	        	<a class="nav-link" href="/catalogo">Catalogo</a>
+	      	</li>
+	     	<li class="nav-item">
+	       		 <a class="nav-link" href="#">Nosotros</a>
+	     	</li>
+	      	<li class="nav-item">
+	       		 <a class="nav-link" href="/contacto">Contacto</a>
+	     	</li> 
+	     	<li class="nav-item">
+	       		 <a class="nav-link" href="/cart" title="Cart"><i class="fas fa-shopping-cart"></i>&nbsp; 
+<!-- 	       		 	<span th:if="${session.myCart == null}">(0)</span> -->
+<!--     				<span th:unless="${session.myCart == null}" th:text="@{'('+${session.myCart.size()}+')'}"></span> -->
+					<span id="cart-item-count" class="product-count">(0)</span>
+	       		 </a>
+	       		 
+	     	</li> 
+			<li class="nav-item">
+	      		<a class="nav-link" href="/registrar"><i class="far fa-user"></i></a>
+
+	      	</li>
+	      	<li class="nav-item">
+	      		<a class="nav-link" href="/login"><i class="fas fa-sign-in-alt fa-lg"></i></a>
+
+	      	</li>
+	    </ul>
+	    
+	    <ul class="navbar-nav ml-auto" sec:authorize="hasAuthority('ROL_ADMINISTRADOR')"> 
+	    		<li class="nav-item dropdown">
+	    			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <i class="fas fa-cog"></i>&nbsp;Landing
+			        </a>
+		        	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          	<a class="dropdown-item" href="/administrativo/destacados">Destacados</a>
+			          	<a class="dropdown-item" href="#">Banner</a>
+			      
+			        </div>
+		      	</li>
+		     	<li class="nav-item">
+		       		 <a class="nav-link" href="/administrativo/compraComercios"><i class="fas fa-shopping-cart"></i>&nbsp;Ventas</a>
+		     	</li>
+		     	<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <i class="fas fa-cog"></i>&nbsp;Configuraci&oacute;n
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="/administrativo/productos">Productos</a>
+			          <a class="dropdown-item" href="/administrativo/categorias">Categorias</a>
+			          <div class="dropdown-divider"></div>
+			          <a class="dropdown-item" href="/administrativo/clientes">Clientes</a>
+			          <a class="dropdown-item" href="/administrativo/administradores">Administradores</a>
+			         
+			        </div>
+		      	</li>
+		      	<li class="nav-item">
+		       		 <a class="nav-link" href="#"><i class="fa fa-book"></i>&nbsp;Reportes</a>
+		     	</li> 	
+		     	<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <i class="fas fa-user"></i>&nbsp;<span sec:authentication="principal.username"/>
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="/logout"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;Logout</a>
+			         
+			        </div>
+		      	</li>
+		     	
+	           
+         </ul>
+         
+         <ul class="navbar-nav ml-auto" sec:authorize="hasAuthority('ROL_CLIENTE')"> 
+         		
+	    		
+	    		<li class="nav-item active">
+	       	 		<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+		     	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="/catalogo">Catalogo</a>
+		      	</li>
+		     	<li class="nav-item">
+		       		 <a class="nav-link" href="#">Nosotros</a>
+		     	</li>
+		      	<li class="nav-item">
+		       		 <a class="nav-link" href="/contacto">Contacto</a>
+		     	</li>  
+		     	<li class="nav-item">
+		       		 <a class="nav-link" href="/cliente/compras"><i class="fas fa-shopping-bag"></i>&nbsp;Mis compras</a>
+		     	</li>
+		     		
+		     	<li class="nav-item">
+		       		 <a class="nav-link" href="/cart" title="Cart"><i class="fas fa-shopping-cart"></i>&nbsp; 
+		       		 	<span id="cart-item-count" class="product-count">(0)</span>
+		       		 </a>
+		       		 
+		     	</li>
+		     	<li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <i class="fas fa-user"></i>&nbsp;<span sec:authentication="principal.username"/>
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="/logout"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;Logout</a>
+			         
+			        </div>
+		      	</li>
+		     	
+	           
+         </ul>
+	    
+  </div>
+	
+</nav>
+
+
