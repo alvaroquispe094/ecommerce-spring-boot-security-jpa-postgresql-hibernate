@@ -58,6 +58,9 @@ public class ClienteController {
 		
 		 BooleanExpression consulta = QCompraComercio.compraComercio.id.ne(0);
 		 
+		 //solo traigo las compras del usuario logueado
+		 consulta = consulta.and(QCompraComercio.compraComercio.usuarioCliente.id.eq(usuarioCliente.getId()));
+		 
 		 if(idEstado != null) {
 			 consulta = consulta.and(QEstado.estado.id.eq(idEstado));
 		 }
@@ -99,16 +102,6 @@ public class ClienteController {
 	 	return new ModelAndView("profile","modelo",modelo);
 	}
 	
-	@RequestMapping(value="/registrar", method=RequestMethod.GET)
-	 public ModelAndView populateNuevoUsuarioCliente() {
-		 Map<String, Object> modelo = new HashMap<String, Object>();
-	
-		 modelo.put("usuarioCliente", new UsuarioCliente());
-		 		 
-		 return new ModelAndView("usuarioClienteForm","modelo",modelo);
-		}
-	 
-	
 	@RequestMapping(value = "/cliente/guardar", method = RequestMethod.POST)
 	protected ModelAndView guardarUsuarioCliente(@RequestParam Integer id,@RequestParam String nombre, 
 				@RequestParam String apellido, @RequestParam String username, 
@@ -121,20 +114,7 @@ public class ClienteController {
 	
 		return new ModelAndView(new RedirectView("/cliente/profile?message=Los datos han sido guardados"));
    }
-	
-//	@RequestMapping(value = "/cliente/compra/confirmar", method = RequestMethod.POST)
-//	protected ModelAndView guardarCompraConfirmacion(@RequestParam Integer id,@RequestParam String nombre, 
-//				@RequestParam String apellido, @RequestParam String username, 
-//				@RequestParam String password,@RequestParam Integer documento, @RequestParam String telefono,
-//				@RequestParam String direccion, @RequestParam String fecha, @RequestParam (required=false) String email,
-//				@RequestParam(required=false, defaultValue="true") Boolean activo, Principal principal){
-//		 
-//		usuarioClienteService.saveUsuarioCliente(id, nombre, apellido, username, password, documento, telefono, direccion, fecha, email, Rol.ROL_CLIENTE, activo);
-//		System.out.println("save usuario");
-//	
-//		return new ModelAndView(new RedirectView("/cliente/profile?message=Los datos han sido guardados"));
-//   }
-	
+
 	@RequestMapping(value="/cliente/compra/productos", method=RequestMethod.GET)
 	 protected ModelAndView administrarCompraComercioProductos(Principal principal, @RequestParam( value = "id") Integer idCompraComercio, 
 			 @PageableDefault(size = 30, sort="producto.nombre") Pageable pageable,

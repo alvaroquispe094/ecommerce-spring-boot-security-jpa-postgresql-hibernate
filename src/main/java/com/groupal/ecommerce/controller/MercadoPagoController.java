@@ -32,8 +32,8 @@ public class MercadoPagoController {
 	@RequestMapping(value="/notifications", method=RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	protected @ResponseBody String notificacionMercadoPago(HttpServletRequest request,Principal principa){
-		System.out.println("topic:");	
-		System.out.println("id:");
+		System.out.println("topic:sdgsdgsdgsdg");	
+		System.out.println("id: sdgsdgsdg2134235");
 
 		// SI EL CLIENTE TIENE CONFIGURADO MercadoPago
 //		Parametrizador parametrizador = parametrizadorManager.get(Parametrizador.SHOPPING_CART_PARAMS);

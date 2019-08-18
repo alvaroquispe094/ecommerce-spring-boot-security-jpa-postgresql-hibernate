@@ -36,135 +36,133 @@
     	<div th:replace="include/mensajes :: mensajes"></div>
     	
     	<div class="container pt-3">
-	    <div class="row">
-	  		<div class="col-sm-10"><h1>Bienvenido: <span th:text="${modelo.usuarioCliente.nombre}"></span> <span th:text="${modelo.usuarioCliente.apellido}"></span></h1></div>
-	    	
-	    </div>
-	    <hr></hr>
-	    <div class="row">
-	  		<div class="col-lg-3 pt-3"><!--left col-->
-	              
+		    <div class="row">
+		  		<div class="col-sm-10"><h1>Bienvenido: <span th:text="${modelo.usuarioCliente.nombre}"></span> <span th:text="${modelo.usuarioCliente.apellido}"></span></h1></div>
+		    	
+		    </div>
+		    <hr></hr>
+		    <div class="row">
+		  		<div class="col-lg-3 pt-3"><!--left col-->
+		              
+		
+			        <div class="card">
+						<article class="card-group-item">
+							<header class="card-header"><h6 class="title">Activity </h6></header>
+							<div class="filter-content">
+								<div class="list-group list-group-flush">
+								  <a href="/cliente/compras" class="list-group-item">Compras <span class="float-right badge badge-light round">142</span> </a>
+								  <a href="/#" class="list-group-item">Facturacion<span class="float-right badge badge-light round">3</span>  </a>
+								  <a href="/cliente/profile" class="list-group-item">Mis datos <span class="float-right badge badge-light round">32</span>  </a>
+								  <a href="#" class="list-group-item">Reportes <span class="float-right badge badge-light round">12</span>  </a>
+								</div>  <!-- list-group .// -->
+							</div>
+						</article> <!-- card-group-item.// -->
+		
+					</div> <!-- card.// -->
+					
+					<div class="row pt-3">
+			            	<div class="col-lg-12" >
 	
-		        <div class="card">
-					<article class="card-group-item">
-						<header class="card-header"><h6 class="title">Activity </h6></header>
-						<div class="filter-content">
-							<div class="list-group list-group-flush">
-							  <a href="/cliente/compras" class="list-group-item">Compras <span class="float-right badge badge-light round">142</span> </a>
-							  <a href="/#" class="list-group-item">Facturacion<span class="float-right badge badge-light round">3</span>  </a>
-							  <a href="/cliente/profile" class="list-group-item">Mis datos <span class="float-right badge badge-light round">32</span>  </a>
-							  <a href="#" class="list-group-item">Reportes <span class="float-right badge badge-light round">12</span>  </a>
-							</div>  <!-- list-group .// -->
+	
+									<form>
+									  
+									  <div class="form-group">
+									    <select  id="estado" name="estado" class="form-control" > 										
+									    		<option value="">Seleccione Estado</option> 
+	 											<option th:each="estado : ${modelo.estados}" th:if="${estado.activo}" th:selected="(${modelo.estado} == *{estado.id})" class="opcion" th:value="${estado.id}" th:text="${estado.nombre}"></option>
+													
+										
+										</select>
+									  </div>
+									  <div class="form-group">
+									   <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Filtrar</button>
+									  </div>
+									</form>
+							</div>
 						</div>
-					</article> <!-- card-group-item.// -->
+		          
+		          
+		        </div><!--/col-3-->
+		        
+		    	<div class="col-lg-9 pt-3">
+		    	
+		    		<section th:if="${modelo.cantidad != 0}">    
 	
-				</div> <!-- card.// -->
+			            
+			         	<div class="row">
+							<!-- productos adquiridos -->
+							<div class="col-lg-12">		                    
+			                    
+			                    <div class="table-responsive mb-3">
+				                    <table class="table table-striped">
+				                        <thead class="thead-dark">
+				                            <tr>
+				                            	<th>N° compra</th>
+				                                
+				                                <th>Estado</th>
+				                                <th>Fecha compra</th>
+				                                <th>Total compra</th>
+				                                
+				                                <th>Acciones</th>
+				                                
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                            <tr th:each="compraComercio : ${modelo.compraComercios}">
+				                                <td th:text="${compraComercio.id}"></td>
+				                                
+				                                <td th:text="${compraComercio.estado.nombre}"></td>
+				                                <td th:text="${#dates.format(compraComercio.fecha, 'dd/MM/yyyy')}"></td>
+				                                <td th:text="'$ '+${compraComercio.total}"></td>
+				                            	
+				                                <td class="text-nowrap">
+				                                	
+				                                	<a th:href="@{'/cliente/compra/productos'(id=${compraComercio.id})}" class="btn btn-outline-primary"><i class="fas fa-shopping-bag"></i>&nbsp;Detalle</a>
+				                                	
+													<!-- apareceran o no segun el case -->
+													<th:block th:switch="${compraComercio.estado.nombre}">
+													    
+													    <div th:case="'INGRESADO'">
+													        
+													        <a th:href="@{'/cart/checkout'(id=${compraComercio.id})}" class="btn btn-outline-success"><i class="fas fa-calendar-check"></i>&nbsp;continuar</a>
+													    	
+													    </div>
+													    <div th:case="'CONFIRMADO'">
+													        
+													        <a th:href="@{'/administrativo/compraComercio/ver'(id=${compraComercio.id})}" class="btn btn-outline-info"><i class="fas fa-money-check"></i>&nbsp;Ver</a>
+													    	<a th:href="@{'/cart/payment'(id=${compraComercio.id})}" class="btn btn-outline-success"><i class="fas fa-money-bill-wave"></i>&nbsp;Pagar</a>
+													    </div>
+													    <div th:case="'PAGADO'">
+													        
+													        <a th:href="@{'/administrativo/compraComercio/ver'(id=${compraComercio.id})}" class="btn btn-outline-secondary"><i class="fas fa-money-check"></i>&nbsp;Ver</a>
+													   		
+													    </div>
+													    
+													</th:block>
+				                                </td>
+				                                
+				                                
+				                            </tr>
+				                        </tbody>
+				                    </table>    
+			                    </div>
+			               		
+			               		<div th:replace="include/pagination :: pagination"></div>     		
+							</div>
 				
-				<div class="row pt-3">
-		            	<div class="col-lg-12" >
-
-
-								<form>
-								  
-								  <div class="form-group">
-								    <select  id="estado" name="estado" class="form-control" > 										
-								    		<option value="">Seleccione Estado</option> 
- 											<option th:each="estado : ${modelo.estados}" th:if="${estado.activo}" th:selected="(${modelo.estado} == *{estado.id})" class="opcion" th:value="${estado.id}" th:text="${estado.nombre}"></option>
-												
-									
-									</select>
-								  </div>
-								  <div class="form-group">
-								   <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Filtrar</button>
-								  </div>
-								</form>
-						</div>
+						</div> 
+		         		
+					</section>
+					
+					<div th:unless="${modelo.cantidad != 0}">
+						<p class="clear no-result text-center">No ha realizado ninguna compra aún</p>   	
 					</div>
-	          
-	          
-	        </div><!--/col-3-->
-	    	<div class="col-lg-9 pt-3">
-	    	
-	    		<section th:if="${modelo.cantidad != 0}">    
-
-		            
-		         	<div class="row">
-						<!-- productos adquiridos -->
-						<div class="col-lg-12">
-							
-							<div>
-		                    <h2>Listado de Compras</h2>
-		                    
-		                    <div class="table-responsive mb-3">
-			                    <table class="table table-striped">
-			                        <thead class="thead-dark">
-			                            <tr>
-			                            	<th>N° compra</th>
-			                                
-			                                <th>Estado</th>
-			                                <th>Fecha compra</th>
-			                                <th>Total compra</th>
-			                                
-			                                <th>Acciones</th>
-			                                
-			                            </tr>
-			                        </thead>
-			                        <tbody>
-			                            <tr th:each="compraComercio : ${modelo.compraComercios}">
-			                                <td th:text="${compraComercio.id}"></td>
-			                                
-			                                <td th:text="${compraComercio.estado.nombre}"></td>
-			                                <td th:text="${#dates.format(compraComercio.fecha, 'dd/MM/yyyy')}"></td>
-			                                <td th:text="'$ '+${compraComercio.total}"></td>
-			                            	
-			                                <td class="text-nowrap">
-			                                	
-			                                	<a th:href="@{'/cliente/compra/productos'(id=${compraComercio.id})}" class="btn btn-outline-primary"><i class="fas fa-shopping-bag"></i>&nbsp;Detalle</a>
-			                                	
-												<!-- apareceran o no segun el case -->
-												<th:block th:switch="${compraComercio.estado.nombre}">
-												    
-												    <div th:case="'INGRESADO'">
-												        
-												        <a th:href="@{'/cart/checkout'(id=${compraComercio.id})}" class="btn btn-outline-success"><i class="fas fa-calendar-check"></i>&nbsp;continuar</a>
-												    	
-												    </div>
-												    <div th:case="'CONFIRMADO'">
-												        
-												        <a th:href="@{'/administrativo/compraComercio/ver'(id=${compraComercio.id})}" class="btn btn-outline-info"><i class="fas fa-money-check"></i>&nbsp;Ver</a>
-												    	<a th:href="@{'/cart/payment'(id=${compraComercio.id})}" class="btn btn-outline-success"><i class="fas fa-money-bill-wave"></i>&nbsp;Pagar</a>
-												    </div>
-												    <div th:case="'PAGADO'">
-												        
-												        <a th:href="@{'/administrativo/compraComercio/ver'(id=${compraComercio.id})}" class="btn btn-outline-secondary"><i class="fas fa-money-check"></i>&nbsp;Ver</a>
-												   		
-												    </div>
-												    
-												</th:block>
-			                                </td>
-			                                
-			                                
-			                            </tr>
-			                        </tbody>
-			                    </table>    
-		                    </div>
-		               		
-		               		<div th:replace="include/pagination :: pagination"></div>     
-		                    
-		                </div>
-							
-						</div>
-						
-						 
-					</div> 
-	         		
-				</section>
-	        </div><!--/col-9-->
-	    </div><!--/row-->
-    </div>
+					
+		        </div><!--/col-9-->
+		    </div><!--/row-->
+	    </div>
     	
-    	
-    	<div sec:authorize="!hasAuthority('ROL_CLIENTE')" th:replace="include/footer :: footer"></div> 
+    	<div th:replace="include/footer :: footer"></div> 
         
     </body>
 </html>
