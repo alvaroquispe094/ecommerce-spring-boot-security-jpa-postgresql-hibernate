@@ -12,11 +12,11 @@ import com.mercadopago.resources.datastructures.preference.Phone;
 
 public class CustomMercadoPago {
 	
-	public static String clientSecret = "F0m81rp7pJHdUcqtc1mMvEmjNNwirVCC";
-	public static String clientId = "8748088937636555";
+	public static String clientSecret = "trDUoRzk8HAHhAyTgZs0bEOlGkhxD3LS";
+	public static String clientId = "8490206967742231";
 	//public static String appId = "TEST-c5e4ea3e-916f-46a2-a710-1b1fb3256060";
 //	public static String accessToken = "TEST-6784463567058779-070621-2b5f4ec5299a6a63084bc6b615d9572b-450014717";
-	public static String accessToken = "APP_USR-8748088937636555-062013-e3ea4be40b0f607129b113064514894a-295953388";
+	public static String accessToken = "TEST-8490206967742231-081821-9af6f0572cc77ba9ce8d2fa60961348d-462649532";
 	public static String userToken = null;
 //	public static String appId = null;
     
