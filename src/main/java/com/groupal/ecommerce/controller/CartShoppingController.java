@@ -364,7 +364,7 @@ public class CartShoppingController {
         
         preference.save();
 		
-        String checkoutURL = preference.getSandboxInitPoint();
+        String checkoutURL = preference.getInitPoint();
         
 //        String  url= "/"+checkoutURL+"";
 				
