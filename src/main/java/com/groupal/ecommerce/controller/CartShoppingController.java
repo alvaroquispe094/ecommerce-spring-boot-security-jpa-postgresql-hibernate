@@ -359,7 +359,7 @@ public class CartShoppingController {
 
         preference.setBackUrls(backUrls);
 //        preference.setNotificationUrl("http://localhost:8080/notificacionMercadoPago?id="+idCompraComercio+"");
-        preference.setNotificationUrl("https://ecommerce-aplication.herokuapp.com/notifications");
+        //preference.setNotificationUrl("https://ecommerce-aplication.herokuapp.com/notifications");
         // Save and posting preference
         
         preference.save();
