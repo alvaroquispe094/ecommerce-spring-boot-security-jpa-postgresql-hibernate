@@ -30,7 +30,7 @@ public class MercadoPagoController {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	@RequestMapping(value="/notifications", method=RequestMethod.GET)
+	@RequestMapping(value="/notification", method=RequestMethod.GET)
 	protected ModelAndView notificacionMercadoPago(@RequestParam String topic, @RequestParam String id){
 		System.out.println("topic:sdgsdgsdgsdg");	
 		System.out.println("id: sdgsdgsdg2134235");
