@@ -7,18 +7,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.gson.JsonObject;
 import com.groupal.ecommerce.model.Estado;
 import com.groupal.ecommerce.service.CompraComercioService;
+import com.mercadopago.MercadoPago;
+import com.mercadopago.core.MPApiResponse;
 
 
 @Controller
@@ -30,8 +31,7 @@ public class MercadoPagoController {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@RequestMapping(value="/notifications", method=RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	protected @ResponseBody String notificacionMercadoPago(HttpServletRequest request,Principal principa){
+	protected @ResponseBody String notificacionMercadoPago(@RequestParam String topic, @RequestParam String id){
 		System.out.println("topic:sdgsdgsdgsdg");	
 		System.out.println("id: sdgsdgsdg2134235");
 
@@ -52,22 +52,22 @@ public class MercadoPagoController {
 		
 			
 		
-//		if (topic.equalsIgnoreCase("payment")) {
-//	        try {
-////			JSONObject payment = new JSONObject();
-//	        
-//			MPApiResponse paymentInfo = MercadoPago.SDK.Get("https://api.mercadopago.com/v1/payments/"+id+"?access_token=TEST-6784463567058779-070621-2b5f4ec5299a6a63084bc6b615d9572b-450014717");
-//			JsonObject paymentInfoJson = paymentInfo.getJsonElementResponse().getAsJsonObject();
-//			Integer idCompraComercio = Integer.parseInt(paymentInfoJson.get("external_reference").toString());
-//			
-//			compraComercioService.cambiarEstadoVenta(idCompraComercio, Estado.ENVIADO);
-//			
-//	      } catch (Exception e) {
-//	    	  e.printStackTrace();
-//	      }
+		if (topic.equalsIgnoreCase("payment")) {
+	        try {
+//			JSONObject payment = new JSONObject();
+	        
+			MPApiResponse paymentInfo = MercadoPago.SDK.Get("https://api.mercadopago.com/v1/payments/"+id+"?access_token=TEST-6784463567058779-070621-2b5f4ec5299a6a63084bc6b615d9572b-450014717");
+			JsonObject paymentInfoJson = paymentInfo.getJsonElementResponse().getAsJsonObject();
+			Integer idCompraComercio = Integer.parseInt(paymentInfoJson.get("external_reference").toString());
+			
+			compraComercioService.cambiarEstadoVenta(idCompraComercio, Estado.PAGADO);
+			
+	      } catch (Exception e) {
+	    	  e.printStackTrace();
+	      }
 
-
-		return "12";
+		}
+		return id;
 	}
         
 	
