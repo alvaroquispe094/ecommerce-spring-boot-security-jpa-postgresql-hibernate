@@ -30,8 +30,8 @@ public class MercadoPagoController {
 	
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	@RequestMapping(value="/notifications", method=RequestMethod.POST)
-	protected @ResponseBody String notificacionMercadoPago(@RequestParam String topic, @RequestParam String id){
+	@RequestMapping(value="/notifications", method=RequestMethod.GET)
+	protected ModelAndView notificacionMercadoPago(@RequestParam String topic, @RequestParam String id){
 		System.out.println("topic:sdgsdgsdgsdg");	
 		System.out.println("id: sdgsdgsdg2134235");
 
@@ -67,7 +67,8 @@ public class MercadoPagoController {
 	      }
 
 		}
-		return id;
+		//return id;
+		return new ModelAndView(new RedirectView("/cliente/compras?message=El pago mediante Mercado Pago ha sido confirmado."));
 	}
         
 	
