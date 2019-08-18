@@ -8,7 +8,7 @@ Este proyecto esta basado en [Spring Boot](http://projects.spring.io/spring-boot
 - Maven
 - Spring boot
 - Spring security
-- Spring Data (Hibernate & MySQL)
+- Spring Data (Hibernate & Postgresql)
 - Api de Mercadopago
 - QueryDsl
 - [Thymeleaf](https://thymeleaf.org)
@@ -23,7 +23,7 @@ Este proyecto esta basado en [Spring Boot](http://projects.spring.io/spring-boot
 **1. Clona el repositorio**
 
 ```bash
-git clone https://github.com/alvaroq17/spring-boot-mysql-jpa-hibernate-education-managment-software-example.git
+git clone https://github.com/alvaroquispe094/ecommerce-spring-boot-security-jpa-postgresql-hibernate.git
 ```
 
 **2. Crear la base de datos en postgresql**
