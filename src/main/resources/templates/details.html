@@ -62,7 +62,7 @@
 			      <p><span th:text="@{${modelo.producto.descripcion}}"></span></p>
 			      
 			      
-			      <a th:href="@{'/addCart'(id=${modelo.producto.id})}" class="btn btn-info btn-block"><i class="fas fa-shopping-cart"></i>&nbsp;Agregar</a>
+			      <a th:href="@{'/cart/add'(id=${modelo.producto.id})}" class="btn btn-info btn-block"><i class="fas fa-shopping-cart"></i>&nbsp;Agregar</a>
 			      
 		    </div>
 		
